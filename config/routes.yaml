@@ -1,0 +1,362 @@
+# =========================
+# AUTH
+# =========================
+
+register:
+  path: /tagflow/auth/register
+  controller: App\Controller\AuthController::register
+  methods: [POST]
+
+login:
+  path: /tagflow/auth/login
+  controller: App\Controller\AuthController::login
+  methods: [POST]
+
+refresh:
+  path: /tagflow/auth/refresh
+  controller: App\Controller\AuthController::refresh
+  methods: [POST]
+
+me:
+  path: /tagflow/auth/me
+  controller: App\Controller\AuthController::me
+  methods: [GET]
+
+logout:
+  path: /tagflow/auth/logout
+  controller: App\Controller\AuthController::logout
+  methods: [POST]
+
+logout_all:
+  path: /tagflow/auth/logout-all
+  controller: App\Controller\AuthController::logoutAll
+  methods: [POST]
+
+forgot_password:
+  path: /tagflow/auth/forgot-password
+  controller: App\Controller\AuthController::forgotPassword
+  methods: [POST]
+
+reset_password:
+  path: /tagflow/auth/reset-password
+  controller: App\Controller\AuthController::resetPassword
+  methods: [POST]
+
+delete_account:
+  path: /tagflow/auth/delete-account
+  controller: App\Controller\AuthController::deleteAccount
+  methods: [DELETE]
+
+
+# =========================
+# USERS
+# =========================
+
+users_interests:
+  path: /tagflow/users/me/interests
+  controller: App\Controller\UserController::interests
+  methods: [GET, PUT, PATCH]
+
+users_update_profile:
+  path: /tagflow/users/me
+  controller: App\Controller\UserController::updateProfile
+  methods: [PATCH]
+
+users_followers:
+  path: /tagflow/users/{id_user}/followers
+  controller: App\Controller\UserController::followers
+  methods: [GET]
+  requirements:
+    id_user: '\d+'
+
+users_following:
+  path: /tagflow/users/{id_user}/following
+  controller: App\Controller\UserController::following
+  methods: [GET]
+  requirements:
+    id_user: '\d+'
+
+users_follow:
+  path: /tagflow/users/{id_user}/follow
+  controller: App\Controller\UserController::follow
+  methods: [POST, DELETE]
+  requirements:
+    id_user: '\d+'
+
+users_block:
+  path: /tagflow/users/{id_user}/block
+  controller: App\Controller\UserController::block
+  methods: [POST, DELETE]
+  requirements:
+    id_user: '\d+'
+
+users_profile:
+  path: /tagflow/users/{id_user}
+  controller: App\Controller\UserController::perfilUser
+  methods: [GET]
+  requirements:
+    id_user: '\d+'
+
+users_posts:
+  path: /tagflow/users/{id_user}/posts
+  controller: App\Controller\UserController::postsUser
+  methods: [GET]
+  requirements:
+    id_user: '\d+'
+
+user_password_change:
+  path: /tagflow/users/me/password
+  controller: App\Controller\UserController::passwordChange
+  methods: [PATCH]
+
+users_tag_list:
+  path: /tagflow/users/tags
+  controller: App\Controller\UserController::tagList
+  methods: [GET]
+  requirements:
+    id_user: '\d+'
+
+
+# =========================
+# TAGS
+# =========================
+
+tags_list:
+  path: /tagflow/tags
+  controller: App\Controller\TagsController::tagsList
+  methods: [GET]
+
+tags_by_slug:
+  path: /tagflow/tags/{slug}
+  controller: App\Controller\TagsController::slugTags
+  methods: [GET]
+
+tags_follow:
+  path: /tagflow/tags/{id_tag}/follow
+  controller: App\Controller\TagsController::followTags
+  methods: [POST, DELETE]
+  requirements:
+    id_tag: '\d+'
+
+
+# =========================
+# FEED / EXPLORE
+# =========================
+
+posts_feed:
+  path: /tagflow/posts/feed
+  controller: App\Controller\FeedController::feed
+  methods: [GET]
+
+posts_explore:
+  path: /tagflow/posts/explore
+  controller: App\Controller\FeedController::postExplore
+  methods: [GET]
+
+# =========================
+# POSTS
+# =========================
+
+posts_create:
+  path: /tagflow/posts
+  controller: App\Controller\PostController::createPost
+  methods: [POST]
+
+posts_tags_list:
+  path: /tagflow/posts/{id_post}/tags
+  controller: App\Controller\TagsController::tagPosts
+  methods: [GET]
+  requirements:
+    id_post: '\d+'
+
+posts_tags_action:
+  path: /tagflow/posts/{id_post}/tags/{id_tag}
+  controller: App\Controller\TagsController::tagActionsPosts
+  methods: [POST, DELETE]
+  requirements:
+    id_post: '\d+'
+    id_tag: '\d+'
+
+posts_media_create:
+  path: /tagflow/posts/{id_post}/media
+  controller: App\Controller\PostController::mediaCreate
+  methods: [POST]
+  requirements:
+    id_post: '\d+'
+
+posts_media_delete:
+  path: /tagflow/posts/{id_post}/media/{id_media}
+  controller: App\Controller\PostController::deleteMedia
+  methods: [DELETE]
+  requirements:
+    id_post: '\d+'
+    id_media: '\d+'
+
+posts_save:
+  path: /tagflow/posts/{id_post}/save
+  controller: App\Controller\PostController::savePost
+  methods: [POST, DELETE]
+  requirements:
+    id_post: '\d+'
+
+post_list_saved:
+  path: /tagflow/posts/saved
+  controller: App\Controller\PostController::listSaved
+  methods: [GET]
+
+posts_reactions:
+  path: /tagflow/posts/{id_post}/reactions
+  controller: App\Controller\PostController::reactionsPost
+  methods: [GET, POST, DELETE]
+  requirements:
+    id_post: '\d+'
+
+posts_comments:
+  path: /tagflow/posts/{id_post}/comments
+  controller: App\Controller\PostController::commentsPost
+  methods: [GET, POST]
+  requirements:
+    id_post: '\d+'
+
+posts_options:
+  path: /tagflow/posts/{id_post}
+  controller: App\Controller\PostController::postsOptions
+  methods: [GET, PATCH, DELETE]
+  requirements:
+    id_post: '\d+'
+
+
+# =========================
+# COMMENTS
+# =========================
+
+comments_replies:
+  path: /tagflow/comments/{id_comment}/replies
+  controller: App\Controller\CommentsController::commentsReplies
+  methods: [GET,POST]
+  requirements:
+    id_comment: '\d+'
+
+comments_reactions:
+  path: /tagflow/comments/{id_comment}/reactions
+  controller: App\Controller\CommentsController::commentsReactions
+  methods: [POST, DELETE]
+  requirements:
+    id_comment: '\d+'
+
+comments_edit:
+  path: /tagflow/comments/{id_comment}
+  controller: App\Controller\CommentsController::commentsEdit
+  methods: [PATCH, DELETE]
+  requirements:
+    id_comment: '\d+'
+
+
+# =========================
+# CONVERSATIONS / MESSAGES
+# =========================
+
+conversations:
+  path: /tagflow/conversations
+  controller: App\Controller\ConversationsController::conversations
+  methods: [GET, POST]
+
+conversationsSingle:
+  path: /tagflow/conversations/{id_conversation}
+  controller: App\Controller\ConversationsController::conversationsSingle
+  methods: [GET]
+
+messages_read:
+  path: /tagflow/conversations/{id_conversation}/messages/{id_message}/read
+  controller: App\Controller\ConversationsController::messagesRead
+  methods: [POST]
+  requirements:
+    id_conversation: '\d+'
+    id_message: '\d+'
+
+messages_action:
+  path: /tagflow/conversations/{id_conversation}/messages/{id_message}
+  controller: App\Controller\ConversationsController::messagesAction
+  methods: [PATCH, DELETE]
+  requirements:
+    id_conversation: '\d+'
+    id_message: '\d+'
+
+messages_conversation:
+  path: /tagflow/conversations/{id_conversation}/messages
+  controller: App\Controller\ConversationsController::messages
+  methods: [GET, POST]
+  requirements:
+    id_conversation: '\d+'
+
+
+# =========================
+# NOTIFICATIONS
+# =========================
+
+notifications_read_all:
+  path: /tagflow/notifications/read-all
+  controller: App\Controller\NotificationsController::notificationsReadAll
+  methods: [PATCH]
+
+notifications_read:
+  path: /tagflow/notifications/{id_notification}/read
+  controller: App\Controller\NotificationsController::notificationsRead
+  methods: [PATCH]
+  requirements:
+    id_notification: '\d+'
+
+notifications:
+  path: /tagflow/notifications
+  controller: App\Controller\NotificationsController::notifications
+  methods: [GET]
+
+
+# =========================
+# REPORTS
+# =========================
+
+reports_posts:
+  path: /tagflow/reports/posts/{id_post}
+  controller: App\Controller\ReportsController::reportsPosts
+  methods: [POST]
+  requirements:
+    id_post: '\d+'
+
+reports_comments:
+  path: /tagflow/reports/comments/{id_comment}
+  controller: App\Controller\ReportsController::reportsComments
+  methods: [POST]
+  requirements:
+    id_comment: '\d+'
+
+reports_users:
+  path: /tagflow/reports/users/{id_user}
+  controller: App\Controller\ReportsController::reportsUsers
+  methods: [POST]
+  requirements:
+    id_user: '\d+'
+
+
+# =========================
+# MODERATION / ADMIN
+# =========================
+
+moderation_list:
+  path: /tagflow/moderation
+  controller: App\Controller\ModerationController::moderationList
+  methods: [GET]
+
+moderation_change_report:
+  path: /tagflow/moderation/reports/{type}/{id_report}
+  controller: App\Controller\ModerationController::moderationChangeReport
+  methods: [PATCH]
+  requirements:
+    id_report: '\d+'
+
+admin_user_status:
+  path: /tagflow/admin/users/{id_user}/status
+  controller: App\Controller\ModerationController::adminUserStatus
+  methods: [PATCH]
+  requirements:
+    id_user: '\d+'

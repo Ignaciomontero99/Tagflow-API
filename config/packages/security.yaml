@@ -1,0 +1,44 @@
+security:
+    encoders:
+        App\Entity\Users:
+            algorithm: auto
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\Users
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern: ^/tagflow/auth/login$
+            stateless: true
+            anonymous: true
+            provider: app_user_provider
+            json_login:
+                check_path: /tagflow/auth/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern: ^/tagflow
+            stateless: true
+            anonymous: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+    access_control:
+        - { path: ^/tagflow/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/tagflow/auth/register$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/tagflow/auth/refresh$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/tagflow/auth/forgot-password$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/tagflow/auth/reset-password$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/tagflow/test-auth-header$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/tagflow/auth/me$, roles: IS_AUTHENTICATED_FULLY }
